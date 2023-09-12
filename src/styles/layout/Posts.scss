@@ -13,14 +13,20 @@
     border-radius: 50%;
   }
 
+  &__text {
+    line-height: 1.12rem;
+  }
+
   &__content {
     flex-grow: 1;
     font-size: $size-main-text;
+
   }
 
   &__user {
     padding-right: 0.5rem;
     font-weight: 700;
+    line-height: 1.25rem;
   }
 
   &__username {
@@ -50,7 +56,7 @@
   &__retweets,
   &__likes,
   &__share {
-    padding-left: 1.75rem;
+    padding: 0 0 1rem 1.75rem;
     background-repeat: no-repeat;
     font-size: 0.8125rem;
     color: $color-text-secondary;
