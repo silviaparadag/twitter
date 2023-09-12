@@ -2,6 +2,7 @@ import '../styles/App.scss';
 import { useState } from 'react';
 import Header from './Header';
 import Main from './Main';
+//import MainHeader from './MainHeader';
 import Footer from './Footer';
 import spLogo from '../images/faviconSP.png';
 
@@ -10,49 +11,68 @@ import spLogo from '../images/faviconSP.png';
 
 const App = () => {
   //state
-  const [composeNewPost, setComposeNewPost] = useState(false);
+  const [composeModal, setComposeModal] = useState(false);
   // Modal window must be closed when we run the app, therefore the state variable must be false.
+  const [composeText, setComposeText] = useState('');
+  // const [isButtonDisabled, setButtonDisabled] = useState(true);
 
   //events
   const handleToggleComposeBtns = () => {
     console.log(`I've clicked a button`);
-    setComposeNewPost(!composeNewPost);
+    setComposeModal(!composeModal);
+  };
+  const handleTextArea = (ev) => {
+    console.log(`I've wrotten some text` + ev.target.value);
+    setComposeText(ev.target.value);
   };
 
+  const handleComposeSubmit = (ev) => {
+    ev.preventDefault();
+  };
   //render
 
   const renderComposeModal = () => {
-    if (composeNewPost === true) {
+    const isButtonDisabled = composeText.length === 0;
+    if (composeModal === true) {
       return (
         <div className="compose__modal-overlay">
-          <div className="compose__modal-wrapper">
-            <div className="compose__modal-header">
-              <button
-                className="compose__modal-close-btn"
-                onClick={handleToggleComposeBtns}
-              >
-                Close
-              </button>
+          <form type="submit" onSubmit={handleComposeSubmit}>
+            <div className="compose__modal-wrapper">
+              <div className="compose__modal-header">
+                <button
+                  className="compose__modal-close-btn"
+                  type="button"
+                  onClick={handleToggleComposeBtns}
+                >
+                  Close
+                </button>
+              </div>
+              <div className="compose__modal-content">
+                <img
+                  className="compose__profile-logo"
+                  src={spLogo}
+                  alt="Logo de Adalab"
+                />
+                <textarea
+                  className="compose__profile-textarea"
+                  placeholder="What's happening?!"
+                  value={composeText}
+                  onChange={handleTextArea}
+                />
+              </div>
+              <div className="compose__modal-footer">
+                <button
+                  className="compose__modal-tweet-btn"
+                  disabled={isButtonDisabled}
+                >
+                  Post
+                </button>
+              </div>
             </div>
-            <div className="compose__modal-content">
-              <img
-                className="compose__profile-logo"
-                src={spLogo}
-                alt="Logo de Adalab"
-              />
-              <textarea
-                className="compose__profile-textarea"
-                placeholder="What's happening?!"
-              />
-            </div>
-            <div className="compose__modal-footer">
-              <button className="compose__modal-tweet-btn" disabled>
-                Post
-              </button>
-            </div>
-          </div>
+          </form>
         </div>
       );
+    } else {
     }
   };
 
