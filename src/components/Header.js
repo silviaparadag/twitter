@@ -1,7 +1,7 @@
 import '../styles/layout/Header.scss';
-import logo from '../images/faviconSP.png';
+// import logo from '../images/faviconSP.png';
 
-const Header = () => {
+const Header = ({ handleComposeBtn }) => {
   return (
     <header className="header">
       {/* <h1 className="header__title">Ahoy!</h1>
@@ -21,26 +21,30 @@ const Header = () => {
         <ul className="menu__items">
           <li className="menu__item menu__item--twitter">
             <a className="menu__link" href=".#" title="Ir">
-              <span className="text">Ir al inicio</span>
+              <span className="text">Home</span>
             </a>
           </li>
 
           <li className="menu__item menu__item--search">
-            <a className="menu__link" href=".#" title="Buscar">
-              <span className="text">Buscar</span>
+            <a className="menu__link" href=".#" title="Search">
+              <span className="text">Explore</span>
             </a>
           </li>
 
           <li className="menu__item menu__item--profile">
             <a className="menu__link" href=".#" title="Perfil">
-              <span className="text">Perfil</span>
+              <span className="text">Profile</span>
             </a>
           </li>
 
           <li className="menu__item menu__item--tweet">
-            <a className="menu__link" href=".#" title="Twittear">
-              <span className="text">Postear</span>
-            </a>
+            <button
+              className="menu__link"
+              title="Post"
+              onClick={handleComposeBtn}
+            >
+              <span className="text">Post</span>
+            </button>
           </li>
         </ul>
       </nav>
