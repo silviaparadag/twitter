@@ -6,15 +6,16 @@ import Footer from './Footer';
 
 //import {Link, Route, Routes} from 'react-router-dom';
 
-const App = ()  => {
-
+const App = () => {
   return (
-        <div className="App"> 
-        <Header/>
-        <Main/>
-        <Footer/>
-        </div>
+    <>
+      <div className="page">
+        <Header />
+        <Main />
+      </div>
+      <Footer />
+    </>
   );
-}
+};
 
 export default App;
