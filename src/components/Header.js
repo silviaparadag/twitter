@@ -1,7 +1,7 @@
 import '../styles/layout/Header.scss';
 // import logo from '../images/faviconSP.png';
 
-const Header = ({ handleComposeBtn }) => {
+const Header = ({ handleToggleComposeBtns }) => {
   return (
     <header className="header">
       {/* <h1 className="header__title">Ahoy!</h1>
@@ -41,7 +41,7 @@ const Header = ({ handleComposeBtn }) => {
             <button
               className="menu__link"
               title="Post"
-              onClick={handleComposeBtn}
+              onClick={handleToggleComposeBtns}
             >
               <span className="text">Post</span>
             </button>

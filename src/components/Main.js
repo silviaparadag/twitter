@@ -1,37 +1,8 @@
 import '../styles/layout/Main.scss';
 import spBanner from '../images/xures.jpg';
 import spProfileImg from '../images/sp.png';
-import spLogo from '../images/faviconSP.png';
 
-const Main = () => {
-  const renderComposeModal = () => {
-    return (
-      <div className="compose__modal-overlay">
-        <div className="compose__modal-wrapper">
-          <div className="compose__modal-header">
-            <button className="compose__modal-close-btn">Cerrar</button>
-          </div>
-          <div className="compose__modal-content">
-            <img
-              className="compose__profile-logo"
-              src={spLogo}
-              alt="Logo de Adalab"
-            />
-            <textarea
-              className="compose__profile-textarea"
-              placeholder="¿Qué está pasando?"
-            />
-          </div>
-          <div className="compose__modal-footer">
-            <button className="compose__modal-tweet-btn" disabled>
-              Twittear
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  };
-
+const Main = ({ renderComposeModal }) => {
   return (
     <main className="main">
       <section className="mainheader">
