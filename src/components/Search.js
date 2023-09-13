@@ -1,4 +1,4 @@
-import '../styles/components/Search.scss';
+import '../styles/layout/Search.scss';
 
 const Search = () => {
   return (
@@ -8,7 +8,7 @@ const Search = () => {
         type="search"
         name="search"
         id="search"
-        placeholder="Buscar en Twitter"
+        placeholder="Search on Twitter"
       />
     </form>
   );

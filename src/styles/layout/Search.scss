@@ -2,7 +2,7 @@
 
 .search {
   padding: 0.5rem 1rem;
-  border-bottom: 1px solid $border;
+  border-bottom: 1px solid $color-secondary;
 
   &__input {
     width: 100%;
@@ -21,7 +21,7 @@
 
     &:focus {
       background-color: white;
-      border: 1px solid $color-blue-dark-hover;
+      border: 1px solid $color-secondary5;
     }
 
     &::-webkit-search-decoration,

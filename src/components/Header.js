@@ -10,7 +10,13 @@ const Header = ({ handleToggleComposeBtns }) => {
           <HeaderMenuItem
             liClassName="twitter"
             text="Home"
-            href="/home"
+            href="/"
+            title="Home"
+          />
+          <HeaderMenuItem
+            liClassName="home"
+            text="Home"
+            href="/"
             title="Home"
           />
           <HeaderMenuItem
@@ -22,7 +28,7 @@ const Header = ({ handleToggleComposeBtns }) => {
           <HeaderMenuItem
             liClassName="profile"
             text="Profile"
-            href="/Profile"
+            href="/profile"
             title="Profile"
           />
           <HeaderMenuBtn

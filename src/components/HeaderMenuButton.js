@@ -5,7 +5,10 @@ const HeaderMenuBtn = (props) => {
     props.handleToggleComposeBtns();
   };
   return (
-    <li className={`menu__item menu__item--${props.liClassName}`}>
+    <li
+      key={props.liClassName}
+      className={`menu__item menu__item--${props.liClassName}`}
+    >
       <button
         type="button"
         className="menu__link"

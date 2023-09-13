@@ -1,7 +1,9 @@
+import { Link } from 'react-router-dom';
+
 const EachPost = ({ tweet }) => {
   return (
     <li key={tweet.id}>
-      <article className="tweet__wrapper">
+      <Link className="tweet__wrapper" to={`/post/` + tweet.id}>
         <img
           className="tweet__avatar"
           src={tweet.avatar}
@@ -23,7 +25,7 @@ const EachPost = ({ tweet }) => {
             </li>
           </ul>
         </div>
-      </article>
+      </Link>
     </li>
   );
 };
