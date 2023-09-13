@@ -1,9 +1,9 @@
 import '../styles/layout/Posts.scss';
-import posts from '../data/posts.json';
+//import posts from '../data/posts.json';
 
-const Posts = () => {
+const Posts = ({ postsList }) => {
   //   const htmlTweets = posts.map((tweet) => <li>holis</li>);
-  const htmlTweets = posts.map((tweet) => (
+  const htmlTweets = postsList.map((tweet) => (
     <li key={tweet.id}>
       <article className="tweet__wrapper">
         <img
