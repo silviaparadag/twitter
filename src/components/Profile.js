@@ -2,7 +2,7 @@ import '../styles/layout/Main.scss';
 import spBanner from '../images/xures.jpg';
 import spProfileImg from '../images/sp.png';
 
-const MainHeader = () => {
+const Profile = () => {
   return (
     <>
       <section className="mainheader">
@@ -70,4 +70,4 @@ const MainHeader = () => {
   );
 };
 
-export default MainHeader;
+export default Profile;

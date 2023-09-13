@@ -2,20 +2,18 @@ import '../styles/App.scss';
 import { useEffect, useState } from 'react';
 import Header from './Header';
 import Main from './Main';
-//import MainHeader from './MainHeader';
 import Footer from './Footer';
 import ls from '../services/localStorage';
-import spLogo from '../images/faviconSP.png';
 import callToApi from '../services/api';
 
 //import {Link, Route, Routes} from 'react-router-dom';
-// #7-filters
 
 const App = () => {
   //state
   const [composeModal, setComposeModal] = useState(false);
   // Modal window must be closed when we run the app, therefore the state variable must be false.
   const [composeText, setComposeText] = useState('');
+  //const [newPost, setNewPost] = useState('');
 
   const [postsList, setPostList] = useState(ls.get('posts', []));
 
@@ -41,59 +39,35 @@ const App = () => {
 
   const handleComposeSubmit = (ev) => {
     ev.preventDefault();
-  };
-  //render
-
-  const renderComposeModal = () => {
-    const isButtonDisabled = composeText.length === 0;
-    if (composeModal === true) {
-      return (
-        <div className="compose__modal-overlay">
-          <form type="submit" onSubmit={handleComposeSubmit}>
-            <div className="compose__modal-wrapper">
-              <div className="compose__modal-header">
-                <button
-                  className="compose__modal-close-btn"
-                  type="button"
-                  onClick={handleToggleComposeBtns}
-                >
-                  Close
-                </button>
-              </div>
-              <div className="compose__modal-content">
-                <img
-                  className="compose__profile-logo"
-                  src={spLogo}
-                  alt="Logo de Adalab"
-                />
-                <textarea
-                  className="compose__profile-textarea"
-                  placeholder="What's happening?!"
-                  value={composeText}
-                  onChange={handleTextArea}
-                />
-              </div>
-              <div className="compose__modal-footer">
-                <button
-                  className="compose__modal-tweet-btn"
-                  disabled={isButtonDisabled}
-                >
-                  Post
-                </button>
-              </div>
-            </div>
-          </form>
-        </div>
-      );
-    } else {
-    }
+    postsList.unshift({
+      id: '0as8pdsdf',
+      avatar: '//silviaparadag.github.io/api-sp/twitter-v1/images/user-sp.jpg',
+      user: 'Cristina Iglesias',
+      username: 'Crisi',
+      date: '12 sep 2023',
+      text: composeText,
+      comments: 0,
+      retweets: 0,
+      likes: 0,
+    });
+    setPostList([...postsList]);
+    console.log(postsList);
+    setComposeModal(false);
+    setComposeText('');
   };
 
   return (
     <>
       <div className="page">
         <Header handleToggleComposeBtns={handleToggleComposeBtns} />
-        <Main renderComposeModal={renderComposeModal} postsList={postsList} />
+        <Main
+          composeModal={composeModal}
+          composeText={composeText}
+          handleComposeSubmit={handleComposeSubmit}
+          handleTextArea={handleTextArea}
+          handleToggleComposeBtns={handleToggleComposeBtns}
+          postsList={postsList}
+        />
       </div>
       <Footer />
     </>

@@ -1,13 +1,26 @@
 import '../styles/layout/Main.scss';
-
+import ComposeModalWindow from './ComposeModalWindow';
 import Posts from './Posts';
-import MainHeader from './MainHeader';
+import Profile from './Profile';
 
-const Main = ({ renderComposeModal, postsList }) => {
+const Main = ({
+  composeModal,
+  composeText,
+  handleComposeSubmit,
+  handleTextArea,
+  postsList,
+  handleToggleComposeBtns,
+}) => {
   return (
     <main className="main">
-      <MainHeader />
-      {renderComposeModal()}
+      <Profile />
+      <ComposeModalWindow
+        handleToggleComposeBtns={handleToggleComposeBtns}
+        composeModal={composeModal}
+        composeText={composeText}
+        handleComposeSubmit={handleComposeSubmit}
+        handleTextArea={handleTextArea}
+      />
 
       <Posts postsList={postsList} />
     </main>
