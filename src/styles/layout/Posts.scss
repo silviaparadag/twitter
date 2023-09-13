@@ -1,11 +1,18 @@
 @import '../core/variables.scss';
 
 .tweet {
+
   &__wrapper {
     display: flex;
     align-items: flex-start;
     padding: 0.7rem 1rem 0.3rem 1rem;
     border-bottom: 1px solid $color-secondary;
+    color: $color-primary2;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: none;
+    }
   }
 
   &__avatar {

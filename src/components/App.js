@@ -1,12 +1,20 @@
 import '../styles/App.scss';
-import { useEffect, useState } from 'react';
+import '../styles/layout/Main.scss';
+
 import Header from './Header';
-import Main from './Main';
+import Home from './Home';
+import Search from './Search';
+import Profile from './Profile';
+import ComposeModalWindow from './ComposeModalWindow';
+import Posts from './Posts';
+import PostDetail from './PostDetail';
+import Loader from './Loader';
 import Footer from './Footer';
 import ls from '../services/localStorage';
 import callToApi from '../services/api';
 
-//import {Link, Route, Routes} from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Route, Routes, matchPath, useLocation } from 'react-router-dom';
 
 const App = () => {
   //state
@@ -16,12 +24,15 @@ const App = () => {
   //const [newPost, setNewPost] = useState('');
 
   const [postsList, setPostList] = useState(ls.get('posts', []));
+  const [showLoading, setShowLoading] = useState(false);
 
   useEffect(() => {
     if (ls.get('posts', null) === null) {
+      setShowLoading(true);
       callToApi().then((data) => {
         console.log(data);
         setPostList(data);
+        setShowLoading(false);
         ls.set('posts', data);
       });
     }
@@ -56,18 +67,67 @@ const App = () => {
     setComposeText('');
   };
 
+  const { pathname } = useLocation();
+  const getPostRoute = () => {
+    const routeData = matchPath('/post/:postId', pathname);
+    if (routeData) {
+      const postId = routeData?.params.postId;
+      const postData = postsList.find((post) => post.id === postId);
+      return postData || {};
+    }
+  };
+
   return (
     <>
       <div className="page">
         <Header handleToggleComposeBtns={handleToggleComposeBtns} />
-        <Main
-          composeModal={composeModal}
-          composeText={composeText}
-          handleComposeSubmit={handleComposeSubmit}
-          handleTextArea={handleTextArea}
-          handleToggleComposeBtns={handleToggleComposeBtns}
-          postsList={postsList}
-        />
+        <main className="main">
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <>
+                  <Home />
+                  <Posts postsList={postsList} />
+                </>
+              }
+            ></Route>
+            <Route
+              path="/search"
+              element={
+                <>
+                  <Search />
+                  <Posts postsList={postsList} />
+                </>
+              }
+            ></Route>
+            <Route
+              path="/profile"
+              element={
+                <>
+                  <Profile />
+                  <Posts postsList={postsList} />
+                </>
+              }
+            ></Route>
+            <Route
+              path="/post/:postId"
+              element={
+                <>
+                  <PostDetail getPostRoute={getPostRoute()} />
+                </>
+              }
+            ></Route>
+          </Routes>
+          <ComposeModalWindow
+            handleToggleComposeBtns={handleToggleComposeBtns}
+            composeModal={composeModal}
+            composeText={composeText}
+            handleComposeSubmit={handleComposeSubmit}
+            handleTextArea={handleTextArea}
+          />
+          <Loader showLoading={showLoading} />
+        </main>
       </div>
       <Footer />
     </>
