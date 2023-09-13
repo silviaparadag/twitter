@@ -11,7 +11,10 @@ import PostDetail from './PostDetail';
 import Loader from './Loader';
 import Footer from './Footer';
 import ls from '../services/localStorage';
-import callToApi from '../services/api';
+import dataApi from '../services/api';
+import date from '../services/date';
+
+import { v4 as uuidv4 } from 'uuid';
 
 import { useEffect, useState } from 'react';
 import { Route, Routes, matchPath, useLocation } from 'react-router-dom';
@@ -21,19 +24,29 @@ const App = () => {
   const [composeModal, setComposeModal] = useState(false);
   // Modal window must be closed when we run the app, therefore the state variable must be false.
   const [composeText, setComposeText] = useState('');
-  //const [newPost, setNewPost] = useState('');
-
   const [postsList, setPostList] = useState(ls.get('posts', []));
+  const [profileInfo, setProfileInfo] = useState(ls.get('profile', []));
   const [showLoading, setShowLoading] = useState(false);
+  const [searchText, setSearchText] = useState('');
 
   useEffect(() => {
     if (ls.get('posts', null) === null) {
       setShowLoading(true);
-      callToApi().then((data) => {
+      dataApi.getPostsFromApi().then((data) => {
         console.log(data);
         setPostList(data);
         setShowLoading(false);
         ls.set('posts', data);
+      });
+    }
+  }, []);
+
+  useEffect(() => {
+    if (ls.get('profile', null) === null) {
+      dataApi.getProfileFromApi().then((data) => {
+        console.log(data.username);
+        setProfileInfo(data);
+        ls.set('profile', data);
       });
     }
   }, []);
@@ -51,11 +64,11 @@ const App = () => {
   const handleComposeSubmit = (ev) => {
     ev.preventDefault();
     postsList.unshift({
-      id: '0as8pdsdf',
+      id: uuidv4(),
       avatar: '//silviaparadag.github.io/api-sp/twitter-v1/images/user-sp.jpg',
       user: 'Cristina Iglesias',
       username: 'Crisi',
-      date: '12 sep 2023',
+      date: date.getCurrentDate(),
       text: composeText,
       comments: 0,
       retweets: 0,
@@ -67,6 +80,19 @@ const App = () => {
     setComposeText('');
   };
 
+  const handleSearchByText = (searchText) => {
+    console.log(`searchiiiiing`);
+    setSearchText(searchText);
+  };
+
+  const filteredPosts = postsList.filter((post) => {
+    return (
+      post.text.toLowerCase().includes(searchText.toLowerCase()) ||
+      post.user.toLowerCase().includes(searchText.toLowerCase()) ||
+      post.username.toLowerCase().includes(searchText.toLowerCase())
+    );
+  });
+
   const { pathname } = useLocation();
   const getPostRoute = () => {
     const routeData = matchPath('/post/:postId', pathname);
@@ -76,6 +102,8 @@ const App = () => {
       return postData || {};
     }
   };
+
+  console.log(uuidv4());
 
   return (
     <>
@@ -96,8 +124,11 @@ const App = () => {
               path="/search"
               element={
                 <>
-                  <Search />
-                  <Posts postsList={postsList} />
+                  <Search
+                    searchText={searchText}
+                    handleSearchByText={handleSearchByText}
+                  />
+                  <Posts postsList={filteredPosts} />
                 </>
               }
             ></Route>
@@ -105,7 +136,7 @@ const App = () => {
               path="/profile"
               element={
                 <>
-                  <Profile />
+                  <Profile profileInfo={profileInfo} />
                   <Posts postsList={postsList} />
                 </>
               }

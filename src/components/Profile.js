@@ -2,13 +2,13 @@ import '../styles/layout/Main.scss';
 import spBanner from '../images/xures.jpg';
 import spProfileImg from '../images/sp.png';
 
-const Profile = () => {
+const Profile = ({ profileInfo }) => {
   return (
     <>
       <section className="mainheader">
         <header>
           <h1 className="mainheader__title">
-            <span className="mainheader__account">Silvia Parada</span>
+            <span className="mainheader__account">{profileInfo.user}</span>
             <span className="mainheader__tweets">6.762 Posts</span>
           </h1>
 
