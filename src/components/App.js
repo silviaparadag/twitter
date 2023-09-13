@@ -4,6 +4,7 @@ import Header from './Header';
 import Main from './Main';
 //import MainHeader from './MainHeader';
 import Footer from './Footer';
+import ls from '../services/localStorage';
 import spLogo from '../images/faviconSP.png';
 import callToApi from '../services/api';
 
@@ -16,13 +17,16 @@ const App = () => {
   // Modal window must be closed when we run the app, therefore the state variable must be false.
   const [composeText, setComposeText] = useState('');
 
-  const [postsList, setPostList] = useState([]);
+  const [postsList, setPostList] = useState(ls.get('posts', []));
 
   useEffect(() => {
-    callToApi().then((data) => {
-      console.log(data);
-      setPostList(data);
-    });
+    if (ls.get('posts', null) === null) {
+      callToApi().then((data) => {
+        console.log(data);
+        setPostList(data);
+        ls.set('posts', data);
+      });
+    }
   }, []);
 
   //events
