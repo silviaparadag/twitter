@@ -1,10 +1,11 @@
 import '../styles/App.scss';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Header from './Header';
 import Main from './Main';
 //import MainHeader from './MainHeader';
 import Footer from './Footer';
 import spLogo from '../images/faviconSP.png';
+import callToApi from '../services/api';
 
 //import {Link, Route, Routes} from 'react-router-dom';
 // #7-filters
@@ -14,7 +15,15 @@ const App = () => {
   const [composeModal, setComposeModal] = useState(false);
   // Modal window must be closed when we run the app, therefore the state variable must be false.
   const [composeText, setComposeText] = useState('');
-  // const [isButtonDisabled, setButtonDisabled] = useState(true);
+
+  const [postsList, setPostList] = useState([]);
+
+  useEffect(() => {
+    callToApi().then((data) => {
+      console.log(data);
+      setPostList(data);
+    });
+  }, []);
 
   //events
   const handleToggleComposeBtns = () => {
@@ -80,7 +89,7 @@ const App = () => {
     <>
       <div className="page">
         <Header handleToggleComposeBtns={handleToggleComposeBtns} />
-        <Main renderComposeModal={renderComposeModal} />
+        <Main renderComposeModal={renderComposeModal} postsList={postsList} />
       </div>
       <Footer />
     </>
