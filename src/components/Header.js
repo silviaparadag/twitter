@@ -39,6 +39,7 @@ const Header = ({ handleToggleComposeBtns }) => {
 
           <li className="menu__item menu__item--tweet">
             <button
+              type="button"
               className="menu__link"
               title="Post"
               onClick={handleToggleComposeBtns}
