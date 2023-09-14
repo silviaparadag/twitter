@@ -1,26 +1,33 @@
 import { Link } from 'react-router-dom';
+//import { Fragment } from 'react';
 
-const EachPost = ({ tweet }) => {
+const EachPost = ({ eachPost }) => {
   return (
-    <li key={tweet.id}>
-      <Link className="tweet__wrapper" to={`/post/` + tweet.id}>
+    <li>
+      <Link className="tweet__wrapper" to={`/post/` + eachPost.id}>
         <img
           className="tweet__avatar"
-          src={tweet.avatar}
-          alt={`Avatar of ${tweet.user}`}
+          src={eachPost.avatar}
+          alt={`Avatar of ${eachPost.user}`}
         />
         <div className="tweet__content">
           <p className="tweet__info">
-            <span className="tweet__user">{tweet.user}</span>
-            <span className="tweet__username">@{tweet.username}</span>
-            <span className="tweet__date">{tweet.date}</span>
+            <span className="tweet__user">{eachPost.user}</span>
+            <span className="tweet__username">@{eachPost.username}</span>
+            <span className="tweet__date">{eachPost.date}</span>
           </p>
-          <p className="tweet__text">{tweet.text}</p>
+          <p className="tweet__text">{eachPost.text}</p>
           <ul className="tweet__actions">
-            <li className="tweet__comments">{tweet.comments}</li>
-            <li className="tweet__retweets">{tweet.retweets}</li>
-            <li className="tweet__likes">{tweet.likes}</li>
-            <li className="tweet__share">
+            <li key={eachPost.id + `a`} className="tweet__comments">
+              {eachPost.comments}
+            </li>
+            <li key={eachPost.id + `b`} className="tweet__retweets">
+              {eachPost.retweets}
+            </li>
+            <li key={eachPost.id + `z`} className="tweet__likes">
+              {eachPost.likes}
+            </li>
+            <li key={eachPost.id + `9`} className="tweet__share">
               <span className="tweet__share--text">Share</span>
             </li>
           </ul>

@@ -1,6 +1,10 @@
 import '../styles/layout/Search.scss';
+// handleSearchByText
+const Search = (props) => {
+  const handleSearch = (ev) => {
+    props.handleSearchByText(ev.target.value);
+  };
 
-const Search = () => {
   return (
     <form className="search">
       <input
@@ -9,6 +13,8 @@ const Search = () => {
         name="search"
         id="search"
         placeholder="Search on Twitter"
+        value={props.searchText}
+        onChange={handleSearch}
       />
     </form>
   );
