@@ -6,7 +6,7 @@ const HeaderMenuItem = (props) => {
   return (
     <>
       <li
-        key={props.liClassName}
+        key={props.uuidHeader}
         className={`menu__item menu__item--${props.liClassName}`}
       >
         <NavLink className="menu__link" to={props.href} title={props.title} end>

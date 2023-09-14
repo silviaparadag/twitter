@@ -33,18 +33,15 @@ const App = () => {
     if (ls.get('posts', null) === null) {
       setShowLoading(true);
       dataApi.getPostsFromApi().then((data) => {
-        console.log(data);
         setPostList(data);
         setShowLoading(false);
         ls.set('posts', data);
       });
     }
   }, []);
-
   useEffect(() => {
     if (ls.get('profile', null) === null) {
       dataApi.getProfileFromApi().then((data) => {
-        console.log(data.username);
         setProfileInfo(data);
         ls.set('profile', data);
       });
@@ -53,7 +50,6 @@ const App = () => {
 
   //events
   const handleToggleComposeBtns = () => {
-    console.log(`I've clicked a button`);
     setComposeModal(!composeModal);
   };
   const handleTextArea = (ev) => {
@@ -75,13 +71,11 @@ const App = () => {
       likes: 0,
     });
     setPostList([...postsList]);
-    console.log(postsList);
     setComposeModal(false);
     setComposeText('');
   };
 
   const handleSearchByText = (searchText) => {
-    console.log(`searchiiiiing`);
     setSearchText(searchText);
   };
 
@@ -103,12 +97,13 @@ const App = () => {
     }
   };
 
-  console.log(uuidv4());
-
   return (
     <>
       <div className="page">
-        <Header handleToggleComposeBtns={handleToggleComposeBtns} />
+        <Header
+          handleToggleComposeBtns={handleToggleComposeBtns}
+          uuidHeader={uuidv4()}
+        />
         <main className="main">
           <Routes>
             <Route
@@ -136,7 +131,7 @@ const App = () => {
               path="/profile"
               element={
                 <>
-                  <Profile profileInfo={profileInfo} />
+                  <Profile uuidv4={uuidv4()} profileInfo={profileInfo} />
                   <Posts postsList={postsList} />
                 </>
               }
