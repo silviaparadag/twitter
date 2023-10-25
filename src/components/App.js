@@ -62,8 +62,8 @@ const App = () => {
     postsList.unshift({
       id: uuidv4(),
       avatar: '//silviaparadag.github.io/api-sp/twitter-v1/images/user-sp.jpg',
-      user: 'Cristina Iglesias',
-      username: 'Crisi',
+      user: 'Silvia Parada',
+      username: 'Silvia',
       date: date.getCurrentDate(),
       text: composeText,
       comments: 0,
